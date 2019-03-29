@@ -3,19 +3,20 @@ import PersonContext from "./PersonContext";
 
 const PERSON_STATE_ADD = "PERSON_STATE_ADD_PERSON";
 const PERSON_STATE_RESET = "PERSON_STATE_RESET_PERSON";
+const PERSON_LOAD_DEFAULT = "PERSON_LOAD_DEFAULT";
 
+const initialState = {
+    person: {
+        "name": "",
+        "address": "",
+        "favColor": "",
+        "favChar": ""
+    },
+    persons: []
+};
 const PersonState = props => {
 
 
-    const initialState = {
-        person: {
-            "name": "",
-            "address": "",
-            "favColor": "",
-            "favChar": ""
-        },
-        persons: []
-    };
 
     const [state,dispatch] = useReducer(reducer,initialState);
     const [submitting,setSubmitting] = useState(false);
@@ -35,15 +36,20 @@ const PersonState = props => {
         dispatch({type: PERSON_STATE_RESET, payload: initialState.person});
     };
 
+    const loadDefault = () => {
+        dispatch({type: PERSON_LOAD_DEFAULT});
+    };
+
     return (
         <PersonContext.Provider className="Provider"
 
                                 value={
                                     {
-                                        currentPerson: state.currentPerson,
+                                        currentPerson: state.currentPerson || state.person,
                                         save,
                                         submitting,
-                                        reset
+                                        reset,
+                                        loadDefault
                                     }
                                 }>
 
@@ -60,6 +66,8 @@ const reducer = (state,action) => {
             return {...state, currentPerson: action.payload};
         case PERSON_STATE_RESET:
             return {...state, currentPerson: action.payload};
+        case PERSON_LOAD_DEFAULT:
+            return {...state, currentPerson: {name: 'Rafael', address:'A street', favColor: 'Runaway donkey', favChar: 'Chapolin'}};
         default:
             return state;
     }

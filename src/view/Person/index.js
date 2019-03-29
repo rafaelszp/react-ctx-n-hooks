@@ -3,6 +3,8 @@ import React,{useState} from 'react';
 import PersonContext from "../../components/person/PersonContext"
 import PersonState from "../../components/person/PersonState"
 
+
+
 function Persons(props) {
 
     const [name,setName] = useState("");
@@ -35,19 +37,19 @@ function Persons(props) {
 
                                 <div className="form-group">
                                     <label htmlFor="">Nome</label>
-                                    <input type="text" className="form-control" onChange={e=>setName(e.target.value)}/>
+                                    <input type="text" className="form-control" value={personContext.currentPerson.name} onChange={e=>setName(e.target.value)}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="">Endereço</label>
-                                    <input type="text" className="form-control" onChange={e=>setAddress(e.target.value)}/>
+                                    <input type="text" className="form-control" value={personContext.currentPerson.address} onChange={e=>setAddress(e.target.value)}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="">Cor favorita</label>
-                                    <input type="text" className="form-control" onChange={e=>setFavColor(e.target.value)}/>
+                                    <input type="text" className="form-control" value={personContext.currentPerson.favColor} onChange={e=>setFavColor(e.target.value)}/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="">Personagem favorito</label>
-                                    <input type="text" className="form-control" onChange={e=>setFavChar(e.target.value)}/>
+                                    <input type="text" className="form-control" value={personContext.currentPerson.favChar} onChange={e=>setFavChar(e.target.value)}/>
                                 </div>
 
                                 <div className="form-group">
@@ -57,6 +59,7 @@ function Persons(props) {
 
                                         </div>
                                         <div className="col-sm-2"><input  className="btn btn-primary" type="reset" value={"Limpar"} onClick={personContext.reset}/></div>
+                                        <div className="col-sm-3"><input  className="btn btn-primary" type="reset" value={"Carregar padrão"} onClick={personContext.loadDefault}/></div>
                                     </div>
 
                                 </div>
